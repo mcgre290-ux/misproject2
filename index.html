@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evelynn McGree | Personal Website</title>
+    <style>
+        :root {
+            --primary: #ff8fab;
+            --secondary: #ffc2d1;
+            --accent: #ff4d6d;
+            --background: #fef6f8;
+
+            --text: #2d3748;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: var(--secondary);
+            color: var(--accent);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--secondary), var(--background));
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            /* Video styling */
+            .welcome-video {
+                margin-top: 2rem;
+                width: 100%;
+                max-width: 800px;
+                aspect-ratio: 9/16;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border: none;
+            }
+            gap: 4rem;
+        }
+
+        .profile-image {
+            width: 350px;
+            height: 350px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+        
+        .welcome-video {
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .animated-name {
+            display: inline-block;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .animated-name span {
+            display: inline-block;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .animated-name .lastname {
+            margin-left: 0.2em;
+        }
+
+        .animated-name:hover span {
+            animation: bounce 0.3s ease;
+            color: var(--primary);
+        }
+        
+        .animated-name .lastname {
+            display: inline-block;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .name-sparkle {
+            position: absolute;
+            background: white;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        .letter-highlight {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            opacity: 0;
+            border-radius: 4px;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .hobby-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: all 0.3s;
+        }
+
+        .hobby-card.with-image {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .hobby-image {
+            width: 400px;
+            height: 300px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .hobby-image:hover {
+            transform: scale(1.02);
+        }
+
+        .hobby-content {
+            flex: 1;
+        }
+
+        @media (max-width: 900px) {
+            .hobby-card.with-image {
+                flex-direction: column;
+            }
+
+            .hobby-image {
+                width: 100%;
+                height: 250px;
+            }
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .hobby-title {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--secondary), white);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+        }
+
+        .career-section, .firm-section {
+            background: linear-gradient(135deg, var(--background), white);
+            padding: 4rem 2rem;
+        }
+
+        .firm-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            transition: transform 0.3s ease;
+        }
+
+        .firm-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-info {
+            background: var(--secondary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .contact-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .contact-group h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .firm-highlight {
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .qualification-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .qualification-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .qualification-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .career-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .resume-download {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .resume-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .career-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resume-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .resume-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .resume-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .resume-card .date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .resume-card li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .resume-card li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: var(--secondary);
+            color: var(--text);
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .career-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .career-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .career-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .career-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .career-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .career-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .career-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .career-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .decorative-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--secondary);
+            opacity: 0.3;
+        }
+
+        .bubble-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(255, 255, 255, 0.9),
+                rgba(219, 39, 119, 0.4));
+            border-radius: 50%;
+            backdrop-filter: blur(2px);
+            animation: float-bubble var(--duration) ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float-bubble {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+            }
+            100% {
+                transform: translate(var(--travel-x), -100%) rotate(360deg);
+            }
+        }
+
+        .bubble::after {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            width: 20%;
+            height: 20%;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+        }
+
+        /* Memory Game Styles */
+        .memory-game-section {
+            background: linear-gradient(135deg, var(--secondary), white);
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            perspective: 1000px;
+        }
+
+        .memory-card {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            transform-style: preserve-3d;
+            transform: scale(1);
+            transition: transform 0.5s;
+            cursor: pointer;
+        }
+
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .memory-card:active {
+            transform: scale(0.95);
+            transition: transform 0.2s;
+        }
+
+        .memory-card-front,
+        .memory-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .memory-card-front {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transform: rotateY(180deg);
+            color: white;
+        }
+
+        .memory-card-back {
+            background: linear-gradient(135deg, var(--secondary), white);
+            border: 2px solid var(--primary);
+        }
+
+        .game-controls {
+            margin: 2rem auto;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .game-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: var(--accent);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .game-stats {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .memory-game {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .memory-game {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bubble-container" id="bubbleContainer"></div>
+    
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+            <li><a href="#discover">Discover UMD</a></li>
+            <li><a href="#career">Career</a></li>
+            <li><a href="#firm">Olsen & Thielen</a></li>
+            <li><a href="#pitzel">Pitzel & Pitzel</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero" class="section">
+        <div class="hero-content">
+            <img src="IMG_4838.jpg" alt="Evelynn McGree professional portrait" class="profile-image">
+            <div class="hero-text">
+                <h1 class="animated-name" id="animatedName">
+                    <span>E</span><span>v</span><span>e</span><span>l</span><span>y</span><span>n</span><span>n</span>
+                    <span> </span>
+                    <span class="lastname">McGree</span>
+                </h1>
+                <p>Aspiring Accountant | UMD Student | Optimist</p>
+            </div>
+            <iframe 
+                class="welcome-video"
+                src="https://www.youtube.com/embed/XP__DJXvc28"
+                title="Welcome Video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <div class="hobby-card">
+            <p>Hello! I am Evelynn McGree, an aspiring accountant at the Labovitz School of Business, University of Minnesota Duluth. As a first-year student, I'm excited to dive deep into the world of accounting and use this knowledge to help future clients and businesses.</p>
+            <br>
+            <p>I pride myself on being ambitious and optimistic - core values that drive me to believe I can accomplish anything. These traits have taught me the importance of making your voice heard, going above and beyond, and ensuring others feel noticed and appreciated.</p>
+            <br>
+            <p>My goal in life is to make a positive impact on everyone I meet, no matter how brief our interaction. This mindset keeps me grounded and genuine, as I strive to be the positive difference in others' lives that others have been for me.</p>
+        </div>
+    </section>
+
+    <section id="hobbies" class="section">
+        <h2>My Hobbies</h2>
+        
+        <div class="hobby-card">
+            <h3 class="hobby-title">🏃‍♀️ Running</h3>
+            <p>Running is my escape - a way to clear my mind and find peace when I'm concerned about something or simply need a break. It's not just exercise; it's my meditation in motion.</p>
+        </div>
+
+        <div class="hobby-card with-image">
+            <img src="IMG_5198.JPG" alt="Shopping with friends at the LEGO store" class="hobby-image">
+            <div class="hobby-content">
+                <h3 class="hobby-title">🛍️ Shopping</h3>
+                <p>Shopping is my social sanctuary - a wonderful way to spend quality time with friends and family. I'm passionate about fashion, always excited to discover new styles and learn more about this ever-evolving world.</p>
+            </div>
+        </div>
+
+        <div class="hobby-card">
+            <h3 class="hobby-title">🎤 Singing</h3>
+            <p>While I may not be a professional, singing brings me pure joy! It's about bringing people together and creating moments of happiness. Sometimes, my enthusiasm encourages others to share their beautiful voices too.</p>
+        </div>
+
+        <div class="hobby-card with-image">
+            <img src="IMG_4850.JPG" alt="Boat travel experience in beautiful weather" class="hobby-image">
+            <div class="hobby-content">
+                <h3 class="hobby-title">✈️ Traveling</h3>
+                <p>Each trip is a new adventure, a chance to explore cultures and create lasting memories with loved ones. It's not just about the destinations; it's about the shared experiences and laughter along the way.</p>
+            </div>
+        </div>
+
+        <div class="hobby-card with-image">
+            <img src="IMG_8261.jpeg" alt="Walking with Buster by the lake" class="hobby-image">
+            <div class="hobby-content">
+                <h3 class="hobby-title">🐕 Walking with Buster</h3>
+                <p>Walking with my dog Buster is pure joy. He's taught me about unconditional love through actions, loyalty, and adventures. The memory of his first beach walk, with his joyful body language and loving eyes, will stay with me forever.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="discover" class="section">
+        <h2>Discovering UMD & Duluth</h2>
+        
+        <div class="highlight-box">
+            <h3 class="hobby-title">Why UMD?</h3>
+            <ul>
+                <li>Perfect location - close enough to home for support, far enough for independence</li>
+                <li>Abundant activities - from hiking to shopping, learning to surfing</li>
+                <li>Smart campus design - connected buildings make winter navigation a breeze</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h3 class="hobby-title">Personal Highlights</h3>
+            <p>Meeting my amazing roommate has been a highlight of my UMD experience. She's genuine, caring, and hilarious - a true friend who makes this new chapter feel like home.</p>
+            <br>
+            <p>This journey has also strengthened my hometown friendships. The distance has taught us to support each other in new ways, revealing the true meaning of friendship.</p>
+        </div>
+    </section>
+
+    <section id="memory-game" class="memory-game-section">
+        <h2>Memory Game Challenge</h2>
+        <p>Test your memory with this fun matching game!</p>
+        
+        <div class="game-stats">
+            <span id="moves">Moves: 0</span> | 
+            <span id="matches">Matches: 0</span> |
+            <span id="timer">Time: 0:00</span>
+        </div>
+
+        <div class="game-controls">
+            <button class="game-button" id="startGame">New Game</button>
+            <button class="game-button" id="resetGame">Reset</button>
+        </div>
+
+        <div class="memory-game" id="gameBoard"></div>
+
+        <!-- Audio elements for game sounds -->
+        <audio id="cardFlipSound" preload="auto">
+            <source src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="matchSound" preload="auto">
+            <source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" type="audio/mpeg">
+        </audio>
+        <audio id="victorySound" preload="auto">
+            <source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" type="audio/mpeg">
+        </audio>
+    </section>
+
+    <section id="career" class="career-section">
+        <div class="career-intro">
+            <h2>Resume & Career Interests</h2>
+            <a href="Resume 3.0.png" class="resume-download" target="_blank">
+                📄 Download Full Resume
+            </a>
+        </div>
+
+        <div class="career-grid">
+            <div class="resume-section">
+                <div class="resume-card">
+                    <h3>Education</h3>
+                    
+                    <div class="education-entry">
+                        <div class="date">2025-2029 | Expected Graduation: Spring 2029</div>
+                        <strong>University of Minnesota Duluth</strong>
+                        <p>Bachelor of Business Administration in Accounting</p>
+                        <p>Labovitz School of Business and Economics</p>
+                        <div class="education-details">
+                            <p><strong>Major:</strong> Accounting</p>
+                            <p><strong>Current GPA:</strong> 3.933</p>
+                            <p><strong>Completed Courses:</strong></p>
+                            <ul class="course-list">
+                                <li>IT in Business</li>
+                                <li>Accounting for through CVTP</li>
+                                <li>Introduction to Business</li>
+                                <li>Macro Economics through SMSU</li>
+                                <li>Micro Economics through UMD</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="education-entry" style="margin-top: 1.5rem;">
+                        <div class="date">2021-2025</div>
+                        <strong>Hastings High School</strong>
+                        <p>High School Diploma</p>
+                    </div>
+                </div>
+
+                <div class="resume-card">
+                    <h3>Work Experience</h3>
+                    <div>
+                        <div class="date">October 2025 - Current</div>
+                        <strong>Key Zone Leader - Lester Park Elementary School</strong>
+                        <ul>
+                            <li>Lead and supervise student activities and development</li>
+                            <li>Facilitate educational games, reading, and art projects</li>
+                            <li>Assist with homework and academic support</li>
+                            <li>Ensure student safety and positive environment</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="date">June 2023 - Current</div>
+                        <strong>General Worker - Dairy Queen</strong>
+                        <ul>
+                            <li>Maintain organized and efficient workplace</li>
+                            <li>Demonstrate excellent time management skills</li>
+                            <li>Ensure efficient service delivery</li>
+                            <li>Maintain cleanliness standards</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="date">April 2021 - August 2025</div>
+                        <strong>Busser/Salad Girl/Hostess - Weiderholt's Supper Club</strong>
+                        <ul>
+                            <li>Managed seating arrangements and reservations</li>
+                            <li>Coordinated with staff to ensure smooth service</li>
+                            <li>Provided excellent customer service</li>
+                            <li>Maintained cleanliness and timeliness</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="career-card">
+                <div class="career-icon">💼</div>
+                <h3 class="career-title">Professional Goals</h3>
+                <ul class="career-list">
+                    <li>Lead an accounting firm or department</li>
+                    <li>Specialize in auditing or tax accounting</li>
+                    <li>Guide business development strategies</li>
+                    <li>Build strong client relationships</li>
+                </ul>
+            </div>
+
+            <div class="career-card">
+                <div class="career-icon">🌟</div>
+                <h3 class="career-title">Skills & Strengths</h3>
+                <div class="skills-list">
+                    <span class="skill-tag">Customer Service</span>
+                    <span class="skill-tag">Team Leadership</span>
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Organization</span>
+                    <span class="skill-tag">Communication</span>
+                    <span class="skill-tag">Attention to Detail</span>
+                    <span class="skill-tag">Time Management</span>
+                </div>
+            </div>
+
+            <div class="resume-card" style="grid-column: 1 / -1;">
+                <h3>Activities & Leadership</h3>
+                <ul>
+                    <li>First year member of Labovitz School of Business</li>
+                    <li>Actively engaging in student organizations</li>
+                    <li>Seeking leadership opportunities in business-related clubs</li>
+                    <li>Building professional network within the accounting field</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="firm" class="firm-section">
+        <h2>Olsen & Thielen Accounting Firm</h2>
+        
+        <div class="firm-card">
+            <div class="contact-info">
+                <div class="contact-group">
+                    <h4>Contact Information</h4>
+                    <p>Phone: 651-483-4521</p>
+                    <p>Fax: 651-483-2467</p>
+                </div>
+                <div class="contact-group">
+                    <h4>Location</h4>
+                    <p>2675 Long Lake Rd</p>
+                    <p>Roseville, MN 55113</p>
+                </div>
+            </div>
+
+            <div class="firm-highlight">
+                <h3>Business & Accounting Summer Experience (BASE)</h3>
+                <p>This innovative summer program offers:</p>
+                <ul class="qualification-list">
+                    <li>Insights into public accounting</li>
+                    <li>Day-in-the-life experience of CPA professionals</li>
+                    <li>Engaging activities like bowling and Top Golf</li>
+                    <li>Catered meals and networking opportunities</li>
+                    <li>Service project participation</li>
+                    <li>Potential internship and Associate role interviews</li>
+                </ul>
+            </div>
+
+            <div class="firm-highlight">
+                <h3>Why Olsen & Thielen?</h3>
+                <p>The firm stands out for its commitment to:</p>
+                <ul class="qualification-list">
+                    <li>Supporting staff in obtaining CPA certification</li>
+                    <li>Fostering a family-like work environment</li>
+                    <li>Promoting collaborative team culture</li>
+                    <li>Prioritizing personal growth and development</li>
+                </ul>
+            </div>
+
+            <div class="firm-highlight">
+                <h3>My Qualifications</h3>
+                <ul class="qualification-list">
+                    <li>Relevant accounting coursework and knowledge</li>
+                    <li>Extensive experience in time management</li>
+                    <li>Strong customer service background</li>
+                    <li>Proven track record of hard work and dedication</li>
+                </ul>
+            </div>
+
+            <div class="firm-highlight">
+                <h3>How I Align with Olsen & Thielen</h3>
+                <ul class="qualification-list">
+                    <li>Dedicated to continuous learning in accounting</li>
+                    <li>Value the importance of a positive work environment</li>
+                    <li>Strong work ethic and eagerness to learn</li>
+                    <li>Passion for collaborative team dynamics</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="pitzel" class="firm-section">
+        <h2>Pitzel & Pitzel - Accountants and Advisors</h2>
+        
+        <div class="firm-card">
+            <div class="contact-info">
+                <div class="contact-group">
+                    <h4>Contact Information</h4>
+                    <p>Main: 651-482-9994</p>
+                    <p>Cell: 651-995-6521</p>
+                </div>
+                <div class="contact-group">
+                    <h4>Location</h4>
+                    <p>3900 Northwoods Drive #240</p>
+                    <p>Arden Hills, MN 55112</p>
+                </div>
+            </div>
+
+            <div class="firm-highlight">
+                <h3>Why I Like Pitzel & Pitzel</h3>
+                <p>The firm made a strong impression on me for several reasons:</p>
+                <ul class="qualification-list">
+                    <li>Proactive approach at the business career fair, showing genuine interest</li>
+                    <li>Commitment to using the latest technology for highest quality service delivery</li>
+                    <li>Comprehensive approach to examining and solving client issues</li>
+                    <li>Dedication to both individual and business client success</li>
+                </ul>
+            </div>
+
+            <div class="firm-highlight">
+                <h3>My Qualifications</h3>
+                <ul class="qualification-list">
+                    <li>Passionate and hardworking individual</li>
+                    <li>Relevant academic coursework and knowledge</li>
+                    <li>Active participation in professional clubs and activities</li>
+                    <li>Strong networking and interpersonal skills</li>
+                </ul>
+            </div>
+
+            <div class="firm-highlight">
+                <h3>How I Align with Pitzel & Pitzel</h3>
+                <ul class="qualification-list">
+                    <li>Share their commitment to excellence and pride in work</li>
+                    <li>Strong focus on teamwork and collaboration</li>
+                    <li>Value building strong client relationships</li>
+                    <li>Dedication to professional networking and growth</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Create decorative dots
+        function createDots() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const dots = document.createElement('div');
+                dots.className = 'decorative-dots';
+                for (let i = 0; i < 20; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    dot.style.width = Math.random() * 20 + 'px';
+                    dot.style.height = dot.style.width;
+                    dot.style.left = Math.random() * 100 + '%';
+                    dot.style.top = Math.random() * 100 + '%';
+                    dots.appendChild(dot);
+                }
+                section.appendChild(dots);
+            });
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = document.querySelector(this.getAttribute('href'));
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Animate sections on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initialize dots
+        createDots();
+
+        // Memory Game Logic
+        class MemoryGame {
+            constructor() {
+                this.cards = [];
+                this.gameBoard = document.getElementById('gameBoard');
+                this.moves = 0;
+                this.matches = 0;
+                this.flippedCards = [];
+                this.isLocked = false;
+                this.startTime = null;
+                this.timerInterval = null;
+                this.movesElement = document.getElementById('moves');
+                this.matchesElement = document.getElementById('matches');
+                this.timerElement = document.getElementById('timer');
+                
+                // Initialize sound effects
+                this.cardFlipSound = document.getElementById('cardFlipSound');
+                this.matchSound = document.getElementById('matchSound');
+                this.victorySound = document.getElementById('victorySound');
+
+                // Emoji pairs for cards
+                this.emojis = ['🌸', '🎀', '💝', '💖', '🌺', '🦄', '🎭', '🎪'];
+                
+                document.getElementById('startGame').addEventListener('click', () => this.startNewGame());
+                document.getElementById('resetGame').addEventListener('click', () => this.resetGame());
+            }
+
+            startNewGame() {
+                this.resetGame();
+                this.createCards();
+                this.startTimer();
+            }
+
+            resetGame() {
+                this.gameBoard.innerHTML = '';
+                this.moves = 0;
+                this.matches = 0;
+                this.flippedCards = [];
+                this.isLocked = false;
+                this.updateStats();
+                clearInterval(this.timerInterval);
+                this.timerElement.textContent = 'Time: 0:00';
+            }
+
+            createCards() {
+                const pairs = [...this.emojis, ...this.emojis];
+                this.cards = pairs
+                    .sort(() => Math.random() - 0.5)
+                    .map((emoji, index) => this.createCard(emoji, index));
+                
+                this.cards.forEach(card => this.gameBoard.appendChild(card));
+            }
+
+            createCard(emoji, index) {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.index = index;
+                card.dataset.value = emoji;
+                
+                card.innerHTML = `
+                    <div class="memory-card-front">${emoji}</div>
+                    <div class="memory-card-back"></div>
+                `;
+                
+                card.addEventListener('click', () => this.flipCard(card));
+                return card;
+            }
+
+            flipCard(card) {
+                if (this.isLocked || this.flippedCards.includes(card)) return;
+                
+                card.classList.add('flipped');
+                this.flippedCards.push(card);
+                
+                // Play card flip sound
+                this.cardFlipSound.currentTime = 0;
+                this.cardFlipSound.play();
+                
+                if (this.flippedCards.length === 2) {
+                    this.isLocked = true;
+                    this.moves++;
+                    this.updateStats();
+                    this.checkMatch();
+                }
+            }
+
+            checkMatch() {
+                const [card1, card2] = this.flippedCards;
+                const match = card1.dataset.value === card2.dataset.value;
+                
+                if (match) {
+                    this.matches++;
+                    this.updateStats();
+                    this.flippedCards = [];
+                    this.isLocked = false;
+                    
+                    // Play match sound
+                    this.matchSound.currentTime = 0;
+                    this.matchSound.play();
+                    
+                    if (this.matches === this.emojis.length) {
+                        this.gameComplete();
+                    }
+                } else {
+                    setTimeout(() => {
+                        card1.classList.remove('flipped');
+                        card2.classList.remove('flipped');
+                        this.flippedCards = [];
+                        this.isLocked = false;
+                    }, 1000);
+                }
+            }
+
+            startTimer() {
+                this.startTime = Date.now();
+                clearInterval(this.timerInterval);
+                
+                this.timerInterval = setInterval(() => {
+                    const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
+                    const minutes = Math.floor(elapsed / 60);
+                    const seconds = elapsed % 60;
+                    this.timerElement.textContent = `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }, 1000);
+            }
+
+            updateStats() {
+                this.movesElement.textContent = `Moves: ${this.moves}`;
+                this.matchesElement.textContent = `Matches: ${this.matches}`;
+            }
+
+            gameComplete() {
+                clearInterval(this.timerInterval);
+                
+                // Play victory sound
+                this.victorySound.currentTime = 0;
+                this.victorySound.play();
+                
+                setTimeout(() => {
+                    alert('Congratulations! You completed the game! 🎉');
+                }, 500);
+            }
+        }
+
+        // Initialize the memory game
+        const game = new MemoryGame();
+
+        // Create floating bubbles
+        function createBubbles() {
+            const container = document.getElementById('bubbleContainer');
+            const bubbleColors = [
+                'rgba(219, 39, 119, 0.4)',   // Deep pink
+                'rgba(236, 72, 153, 0.4)',   // Rich pink
+                'rgba(190, 24, 93, 0.4)'     // Dark rose pink
+            ];
+            
+            function createBubble() {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                // Random size between 30px and 100px
+                const size = Math.random() * 70 + 30;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                // Random starting position
+                const startX = Math.random() * 100;
+                bubble.style.left = `${startX}%`;
+                
+                // Random horizontal travel distance
+                const travelX = (Math.random() - 0.5) * 200;
+                bubble.style.setProperty('--travel-x', `${travelX}px`);
+                
+                // Random duration between 8 and 20 seconds
+                const duration = Math.random() * 12 + 8;
+                bubble.style.setProperty('--duration', `${duration}s`);
+                
+                // Random delay
+                bubble.style.animationDelay = `${Math.random() * -20}s`;
+                
+                // Random color
+                const colorIndex = Math.floor(Math.random() * bubbleColors.length);
+                bubble.style.background = `radial-gradient(circle at 30% 30%, 
+                    rgba(255, 255, 255, 0.9),
+                    ${bubbleColors[colorIndex]})`;
+                
+                container.appendChild(bubble);
+                
+                // Remove bubble after animation completes
+                bubble.addEventListener('animationend', () => {
+                    bubble.remove();
+                    createBubble(); // Create a new bubble to replace it
+                });
+            }
+            
+            // Create initial set of bubbles
+            for (let i = 0; i < 15; i++) {
+                createBubble();
+            }
+        }
+
+        // Initialize bubbles
+        createBubbles();
+
+        // Animated name interactions
+        const animatedName = document.getElementById('animatedName');
+        const letters = animatedName.querySelectorAll('span');
+        
+        // Add delay to each letter's animation
+        letters.forEach((letter, index) => {
+            letter.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Create sparkle effect
+        function createSparkle(e) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'name-sparkle';
+            
+            // Position sparkle at mouse position
+            const rect = animatedName.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            sparkle.style.animation = 'sparkle 0.8s ease forwards';
+            
+            animatedName.appendChild(sparkle);
+            
+            // Remove sparkle after animation
+            setTimeout(() => sparkle.remove(), 800);
+        }
+
+        // Add mousemove event for sparkles
+        animatedName.addEventListener('mousemove', createSparkle);
+
+        // Add hover effect for each letter
+        letters.forEach(letter => {
+            letter.addEventListener('mouseover', function() {
+                this.style.transform = 'scale(1.2) translateY(-5px)';
+                this.style.color = 'var(--primary)';
+            });
+
+            letter.addEventListener('mouseout', function() {
+                this.style.transform = 'scale(1) translateY(0)';
+                this.style.color = 'var(--accent)';
+            });
+        });
+
+        // Add click effect
+        animatedName.addEventListener('click', function() {
+            letters.forEach((letter, index) => {
+                setTimeout(() => {
+                    letter.style.transform = 'scale(1.2) translateY(-10px)';
+                    setTimeout(() => {
+                        letter.style.transform = 'scale(1) translateY(0)';
+                    }, 200);
+                }, index * 50);
+            });
+        });
+    </script>
+</body>
+</html>
