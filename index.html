@@ -792,6 +792,9 @@
         <audio id="victorySound" preload="auto">
             <source src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3" type="audio/mpeg">
         </audio>
+        <audio id="backgroundMusic" preload="auto" loop>
+            <source src="sounds/audioforgame.mp3" type="audio/mpeg">
+        </audio>
     </section>
 
     <section id="career" class="career-section">
@@ -1087,6 +1090,8 @@
                 this.cardFlipSound = document.getElementById('cardFlipSound');
                 this.matchSound = document.getElementById('matchSound');
                 this.victorySound = document.getElementById('victorySound');
+                this.backgroundMusic = document.getElementById('backgroundMusic');
+                this.backgroundMusic.volume = 0.3; // Set the volume to 30% to not overpower other sounds
 
                 // Emoji pairs for cards
                 this.emojis = ['🌸', '🎀', '💝', '💖', '🌺', '🦄', '🎭', '🎪'];
@@ -1099,6 +1104,9 @@
                 this.resetGame();
                 this.createCards();
                 this.startTimer();
+                // Start background music
+                this.backgroundMusic.currentTime = 0;
+                this.backgroundMusic.play();
             }
 
             resetGame() {
@@ -1110,6 +1118,9 @@
                 this.updateStats();
                 clearInterval(this.timerInterval);
                 this.timerElement.textContent = 'Time: 0:00';
+                // Stop background music
+                this.backgroundMusic.pause();
+                this.backgroundMusic.currentTime = 0;
             }
 
             createCards() {
@@ -1200,6 +1211,10 @@
 
             gameComplete() {
                 clearInterval(this.timerInterval);
+                
+                // Stop background music
+                this.backgroundMusic.pause();
+                this.backgroundMusic.currentTime = 0;
                 
                 // Play victory sound
                 this.victorySound.currentTime = 0;
