@@ -264,6 +264,29 @@
             margin: 1rem 0;
         }
 
+        .umd-video-container {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .umd-video {
+            width: 100%;
+            max-width: 400px;
+            height: 600px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: none;
+        }
+
+        @media (max-width: 480px) {
+            .umd-video {
+                max-width: 300px;
+                height: 450px;
+            }
+        }
+
         .career-section, .firm-section {
             background: linear-gradient(135deg, var(--background), white);
             padding: 4rem 2rem;
@@ -762,6 +785,17 @@
             <p>Meeting my amazing roommate has been a highlight of my UMD experience. She's genuine, caring, and hilarious - a true friend who makes this new chapter feel like home.</p>
             <br>
             <p>This journey has also strengthened my hometown friendships. The distance has taught us to support each other in new ways, revealing the true meaning of friendship.</p>
+        </div>
+
+        <div class="umd-video-container">
+            <iframe 
+                class="umd-video"
+                src="https://www.youtube.com/embed/G5ue4RKfATY"
+                title="UMD Marketing Video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
         </div>
     </section>
 
